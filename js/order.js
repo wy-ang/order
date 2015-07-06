@@ -1,5 +1,4 @@
-var liHtml;
-var newStr;
+var liHtml,arr,newStrnewArr,iptVal;
 var confirm = $('.confirm');
 var lastHtml = $('.order ul').children().last();
 var add = $('.add');
@@ -9,7 +8,7 @@ var remove = $('.remove');
   *拼接DOM
   */
 confirm.live('click',function(){
-	var iptVal = $('.order input:text').val();
+	iptVal = $('.order input:text').val();
 	liHtml = '<li><span>'+iptVal+'</span><em class="add">添加</em><em class="remove">删除</em></li>';
 	localStorage.setItem("name",liHtml);
 	$('.addOrder').hide();
@@ -21,13 +20,21 @@ confirm.live('click',function(){
 function getArr(){
 	newStr = localStorage.getItem("name");
 	console.log(newStr);
-	$(newStr).insertBefore(lastHtml);
+	$(newStr).insertBefore(lastHtml);  //TODO  此处不妥，有空试下for循环
 	console.log(lastHtml.html());
-	var arr = [];
-	var newArr = arr.push(newStr);
+	arr = ["测试数组1","测试数组2","测试数组3","测试数组4","测试数组5"];
+	newArr = arr.push(newStr);
 	var arrJoin = arr.join("");
+	 
 }
 getArr();
+/**
+  *处理随机数
+  */
+$('.submit').live('click',function(){
+	var randomN = Math.floor(Math.random() * newArr + 1)-1;
+	alert(arr[randomN]); 
+})
 /**
   *处理添加事件
   */
