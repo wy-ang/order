@@ -1,0 +1,14 @@
+ul,li{margin: 0;padding: 0;}
+em,i{font-style: normal;}
+.order{width: 500px;min-height: 300px;border: 1px solid #1584de;margin: 30px auto;}
+.order h2{font-size: 14px;font-weight: normal;color: #1584de;border-bottom: 1px solid #1584de;padding-bottom: 12px;}
+.order ul{min-height: 200px;}
+.order li{list-style: none;line-height: 34px;font-size: 14px;padding-left: 20px;color: #1584de}
+.order li input{width: 354px;padding: 7px;border: 1px solid #1584de;color: #1584de;}
+.order li.addOrder{display: none;} 
+.order h2,.order em,.order i{text-align: center;}
+.order span{display: inline-block;width: 370px}
+.order em,.order i{margin-left:15px;text-decoration: underline;cursor: pointer;}
+
+.btn{width: 500px;text-align: center;}
+.btn input{height: 34px;padding: 0 40px;border: none;background: #1584de;color: #FFF;font-size: 14px;cursor: pointer;font-weight: bold;}
