@@ -9,7 +9,7 @@ em,i{font-style: normal;}
 .order h2,.order em{text-align: center;}
 .order span{display: inline-block;width: 370px}
 .order em{margin-left:50px;text-decoration: underline;cursor: pointer;}
-.order a.add{position: absolute;top:50%;left: 50%;margin:-17px 0 0 -58px; display: inline-block;padding: 0 40px;height: 34px;line-height: 34px; background: #eee;border:1px solid #ccc;border-radius: 5px;color: #999;text-decoration: none;}
+.order a.add{position: absolute;top:50%;left: 50%;margin:-17px 0 0 -58px; display: inline-block;padding: 0 40px;height: 34px;line-height: 34px; background: #eee;border:1px solid #ccc;border-radius: 5px;color: #999;text-decoration: none;display: none;}
 
 .btn{width: 500px;text-align: center;}
 .btn input{height: 34px;padding: 0 40px;margin:20px 0;border: none;background: #1584de;color: #FFF;font-size: 14px;cursor: pointer;font-weight: bold;}

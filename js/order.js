@@ -6,7 +6,15 @@ var add = $('.add');
 var remove = $('.remove');
 var arr = [];
 /**
-  *获取value值
+  *构建DOM
+  */
+  function data(){
+
+  }
+  data()
+/**
+  *处理数据存储
+  *处理数组分割
   *拼接DOM
   */
 confirm.live('click',function(){
@@ -20,30 +28,42 @@ confirm.live('click',function(){
 	for(var i = 0;i<s.length;i++){
 		liHtml = '<li><span>'+s[i]+'</span><em class="remove">删除</em></li>';
 	}
-	getArr();
+	$(liHtml).insertBefore(lastHtml); 
 	$('.addOrder').hide();
 });
 /**
   *处理数据存储函数
   */
 function getArr(){
-	$(liHtml).insertBefore(lastHtml);  //TODO  此处不妥，有空试下for循环，
+	var getVal = localStorage.getItem("key");
+	newArr = arr.push(getVal);
+	arrJoin = arr.join("");
+	var s = arrJoin.split(',');
+	s.shift();
+	for(var i = 0;i<s.length;i++){
+		liHtml = '<li><span>'+s[i]+'</span><em class="remove">删除</em></li>';
+		console.log(s[i]);
+		$(liHtml).insertBefore(lastHtml); 
+	}
+	/**
+	  *处理随机数
+	  */
+	$('.submit').live('click',function(){
+		if(s !== 0){
+			var randomN = Math.floor(Math.random() * s + 1)-1;
+			console.log(randomN)
+			alert(arr[randomN]);
+		}
+	})
+	 //console.log(getVal);
 }
 getArr();
-/**
-  *处理随机数
-  */
-$('.submit').live('click',function(){
-	if(newArr !== 0){
-		var randomN = Math.floor(Math.random() * newArr + 1)-1;
-		alert(arr[randomN]); 
-	}
-})
 /**
   *处理添加事件
   */
 add.live('click',function(){
 	$('.addOrder').show();
+	add.hide();
 })
 /**
   *处理删除事件
@@ -53,6 +73,8 @@ remove.live('click',function(){
 	localStorage.clear();
 })
 
-ulDom.live('mous',function(){
-	add.show()
+ulDom.mouseover(function(){
+	if($('.addOrder').is(':hidden')){
+		add.show();
+	}
 })
