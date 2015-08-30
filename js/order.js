@@ -1,5 +1,5 @@
 var liHtml,arr,newArr,newStrnewArr,iptVal;
-var confirm = $('.confirm');
+var confirmBtn = $('.confirm');
 var ulDom = $('.order ul');
 var lastHtml = $('.order ul').children().last();
 var add = $('.add');
@@ -17,7 +17,12 @@ var arr = [];
   *处理数组分割
   *拼接DOM
   */
-confirm.live('click',function(){
+confirmBtn.live('click',function(){
+	if($('input[type=text]').val('')){
+		alert('请输入内容');
+		$('input[type=text]').val('').focus();
+		return false;
+	}
 	iptVal = $('.order input:text').val();
 	var oldVal = localStorage.getItem("key");
 	var newVal = oldVal+','+iptVal;
@@ -63,14 +68,24 @@ getArr();
   */
 add.live('click',function(){
 	$('.addOrder').show();
+	$('input[type=text]').val('').focus();
 	add.hide();
 })
+
+
+$('.cancel').live('click',function(){
+	$('.addOrder').hide();
+})
+
 /**
   *处理删除事件
   */
 remove.live('click',function(){
-	$(this).parent().remove();
-	localStorage.clear();
+	var removeList = confirm('确定删除该项么？');
+	if(removeList){
+		$(this).parent().remove();
+		localStorage.clear();
+	}
 })
 
 ulDom.mouseover(function(){
