@@ -1,68 +1,56 @@
-var liHtml,arr,newArr,newStrnewArr,iptVal;
 var confirmBtn = $('.confirm');
 var ulDom = $('.order ul');
-var lastHtml = $('.order ul').children().last();
 var add = $('.add');
 var remove = $('.remove');
-var arr = [];
-/**
-  *构建DOM
-  */
-  function data(){
 
-  }
-  data()
+/**
+ * 添加Dom
+ * @param opVal
+ */
+var addDom = function(opVal){
+	var liHtml = '<li><span>'+opVal+'</span><em class="remove">删除</em></li>';
+	$(liHtml).insertBefore($('.addOrder'));
+}
+
 /**
   *处理数据存储
   *处理数组分割
   *拼接DOM
   */
+var dataArr = function(){
+	var iptVal = $('.order input:text').val();
+	addDom(iptVal);
+	var liIndex = ulDom.find('li').not('.addOrder,.last');
+	liIndex.each(function () {
+		var $this = $(this);
+		var $index = $(this).index();
+		$this.attr('iptId',$index);
+		console.log($this.find('span').text());
+		localStorage.setItem('name'+$index+'',$this.find('span').text());
+	})
+	$('.addOrder').hide();
+}
+
+var loadData = function(){
+	for(var i=0;i<localStorage.length;i++){
+		var loadArr = localStorage.getItem('name'+i+'');
+		addDom(loadArr);
+	}
+}
+loadData();
+/**
+ *处理刷新页面数据存储
+ */
+
 confirmBtn.live('click',function(){
-	if($('input[type=text]').val('')){
+	if($('input[type=text]').val()==''){
 		alert('请输入内容');
 		$('input[type=text]').val('').focus();
 		return false;
 	}
-	iptVal = $('.order input:text').val();
-	var oldVal = localStorage.getItem("key");
-	var newVal = oldVal+','+iptVal;
-	localStorage.setItem("key",newVal);
-	newArr = arr.push(newVal);
-	arrJoin = arr.join("");
-	var s = arrJoin.split(',');
-	for(var i = 0;i<s.length;i++){
-		liHtml = '<li><span>'+s[i]+'</span><em class="remove">删除</em></li>';
-	}
-	$(liHtml).insertBefore(lastHtml); 
-	$('.addOrder').hide();
+	dataArr();
 });
-/**
-  *处理数据存储函数
-  */
-function getArr(){
-	var getVal = localStorage.getItem("key");
-	newArr = arr.push(getVal);
-	arrJoin = arr.join("");
-	var s = arrJoin.split(',');
-	s.shift();
-	for(var i = 0;i<s.length;i++){
-		liHtml = '<li><span>'+s[i]+'</span><em class="remove">删除</em></li>';
-		console.log(s[i]);
-		$(liHtml).insertBefore(lastHtml); 
-	}
-	/**
-	  *处理随机数
-	  */
-	$('.submit').live('click',function(){
-		if(s !== 0){
-			var randomN = Math.floor(Math.random() * s + 1)-1;
-			console.log(randomN)
-			alert(arr[randomN]);
-		}
-	})
-	 //console.log(getVal);
-}
-getArr();
+
 /**
   *处理添加事件
   */
@@ -84,12 +72,31 @@ remove.live('click',function(){
 	var removeList = confirm('确定删除该项么？');
 	if(removeList){
 		$(this).parent().remove();
-		localStorage.clear();
+		/*for(var i=0;i<localStorage.length;i++){
+			localStorage.removeItem('name'+i+'');
+		}*/
+
 	}
 })
 
-ulDom.mouseover(function(){
-	if($('.addOrder').is(':hidden')){
+ulDom.live('mouseover mouseout',function(e){
+	if(e.type=='mouseover'){
 		add.show();
+	}else{
+		add.hide();
 	}
+})
+
+
+var a = function(callback){
+
+		aaa = 1;
+
+		callback();
+
+}
+
+a(function(){
+	aaa = 2;
+	//console.log(aaa);
 })
