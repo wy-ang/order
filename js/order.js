@@ -5,7 +5,7 @@ var remove = $('.remove');
 
 /**
  * 添加Dom
- * @param opVal
+ * @param 用户输入的数据
  */
 var addDom = function(opVal){
 	var liHtml = '<li><span>'+opVal+'</span><em class="remove">删除</em></li>';
@@ -23,24 +23,32 @@ var dataArr = function(){
 	var liIndex = ulDom.find('li').not('.addOrder,.last');
 	liIndex.each(function () {
 		var $this = $(this);
-		var $index = $(this).index();
+		var $index = $this.index();
 		$this.attr('iptId',$index);
-		console.log($this.find('span').text());
-		localStorage.setItem('name'+$index+'',$this.find('span').text());
+		iptId = $this.attr('iptId');
+		localStorage.setItem('name'+$index,'{name'+':'+$this.find('span').text()+',iptId'+':'+iptId+'}');
 	})
 	$('.addOrder').hide();
 }
-
+console.log($('input[type=hidden]').val());
+/**
+ *处理刷新页面数据存储
+ */ 
 var loadData = function(){
 	for(var i=0;i<localStorage.length;i++){
-		var loadArr = localStorage.getItem('name'+i+'');
-		addDom(loadArr);
+		var loadArr = localStorage.getItem('name'+i);
+		var jsonObj = eval('('+loadArr+')');
+		addDom(jsonObj.name);
 	}
 }
 loadData();
-/**
- *处理刷新页面数据存储
- */
+
+
+$('input[type=text]').keydown(function(e){
+	if(e.which == 13){
+		confirmBtn.click();
+	}
+})
 
 confirmBtn.live('click',function(){
 	if($('input[type=text]').val()==''){
@@ -69,12 +77,14 @@ $('.cancel').live('click',function(){
   *处理删除事件
   */
 remove.live('click',function(){
+	var dataLength = localStorage.length;
+		console.log(dataLength);
 	var removeList = confirm('确定删除该项么？');
 	if(removeList){
 		$(this).parent().remove();
-		/*for(var i=0;i<localStorage.length;i++){
+		for(var i=0;i<dataLength;i++){
 			localStorage.removeItem('name'+i+'');
-		}*/
+		}
 
 	}
 })
