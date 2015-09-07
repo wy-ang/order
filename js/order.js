@@ -52,7 +52,7 @@ confirmBtn.live('click',function(){
 		var $index = $this.index();
 		$this.attr('iptId',$index);
 		iptId = $this.attr('iptId');
-		localStorage.setItem('name'+$index,'{name'+':'+$this.find('span').text()+',iptId'+':'+iptId+'}');
+		localStorage.setItem("name"+$index,"{name:'"+$this.find('span').text()+"',iptId:"+iptId+"}");
 	})
 	$('.addOrder').hide();
 });
