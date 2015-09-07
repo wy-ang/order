@@ -20,7 +20,6 @@ var loadData = function(){
 		var loadArr = localStorage.getItem(localStorage.key(i));
 		var jsonObj = eval('('+loadArr+')');
 		addDom(jsonObj.name,jsonObj.iptId);
-		console.log(localStorage.key(i));
 	}
 }
 loadData();
@@ -83,7 +82,18 @@ remove.live('click',function(){
 		localStorage.removeItem('name'+parentId+'');
 	}
 })
-
+/**
+  *处理随机数
+  */
+$('input[type=submit]').live('click',function(){
+	var random = Math.random()*$('li:not(.addOrder)').length;
+	var round = Math.round(random);
+	$('li:not(.addOrder)').each(function(){
+		if($(this).attr('iptId') == round){
+			alert($(this).find('span').text());
+		}
+	})
+})
 
 var a = function(callback){
 
@@ -97,3 +107,4 @@ a(function(){
 	aaa = 2;
 	//console.log(aaa);
 })
+console.log("author-QQ：563033455")
